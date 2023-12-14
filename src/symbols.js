@@ -43,8 +43,6 @@
 
 modules.symbols = '2023-July-13';
 
-var SymbolMorph;
-
 // SymbolMorph //////////////////////////////////////////////////////////
 
 /*
@@ -606,27 +604,30 @@ SymbolMorph.prototype.renderSymbolGears = function (ctx, color) {
             r,
             r,
             radians(i * angle + turn),
-            radians(i * angle + off + turn)
+            radians(i * angle + off + turn),
+            false
         );
         ctx.arc(
             r,
             r,
             r * 0.7,
             radians(i * angle - shift + angle * 0.5 + turn),
-            radians(i * angle + shift + angle * 0.5 + turn)
+            radians(i * angle + shift + angle * 0.5 + turn),
+            false
         );
         ctx.arc(
             r,
             r,
             r,
             radians((i + 1) * angle - off + turn),
-            radians((i + 1) * angle + turn)
+            radians((i + 1) * angle + turn),
+            false
         );
     }
     ctx.lineTo(w, r);
 
     // draw the hole in the middle
-    ctx.arc(r, r, r * 0.3, radians(0), radians(360));
+    ctx.arc(r, r, r * 0.3, radians(0), radians(360), false);
 
     // fill
     ctx.clip('evenodd');
@@ -654,28 +655,31 @@ SymbolMorph.prototype.renderSymbolGearBig = function (ctx, color) {
             r,
             r,
             radians(i * angle),
-            radians(i * angle + off)
+            radians(i * angle + off),
+            false
         );
         ctx.arc(
             r,
             r,
             r * 0.8,
             radians(i * angle - shift + angle * 0.5),
-            radians(i * angle + shift + angle * 0.5)
+            radians(i * angle + shift + angle * 0.5),
+            false
         );
         ctx.arc(
             r,
             r,
             r,
             radians((i + 1) * angle - off),
-            radians((i + 1) * angle)
+            radians((i + 1) * angle),
+            false
         );
     }
     ctx.lineTo(w, r);
 
     // draw the holes in the middle
-    ctx.arc(r, r, r * 0.6, radians(0), radians(360));
-    ctx.arc(r, r, r * 0.2, radians(0), radians(360));
+    ctx.arc(r, r, r * 0.6, radians(0), radians(360), false);
+    ctx.arc(r, r, r * 0.2, radians(0), radians(360), false);
 
     // fill
     ctx.clip('evenodd');
@@ -704,27 +708,30 @@ SymbolMorph.prototype.renderSymbolGearPartial = function (ctx, color) {
             r,
             r,
             radians(i * angle + turn),
-            radians(i * angle + off + turn)
+            radians(i * angle + off + turn),
+            false
         );
         ctx.arc(
             r,
             r,
             r * 0.7,
             radians(i * angle - shift + angle * 0.5 + turn),
-            radians(i * angle + shift + angle * 0.5 + turn)
+            radians(i * angle + shift + angle * 0.5 + turn),
+            false
         );
         ctx.arc(
             r,
             r,
             r,
             radians((i + 1) * angle - off + turn),
-            radians((i + 1) * angle + turn)
+            radians((i + 1) * angle + turn),
+            false
         );
     }
     ctx.lineTo(w, r);
 
     // draw the hole in the middle
-    ctx.arc(r, r, r * 0.3, radians(0), radians(360));
+    ctx.arc(r, r, r * 0.3, radians(0), radians(360), false);
 
     // fill
     ctx.clip('evenodd');
@@ -2312,9 +2319,9 @@ SymbolMorph.prototype.renderSymbolTrash = function (ctx, color) {
     function stripe(x) {
         var half = step / 2;
         ctx.moveTo(x - half, step * 4);
-        ctx.arc(x, step * 4, half, radians(180), radians(0));
+        ctx.arc(x, step * 4, half, radians(180), radians(0), false);
         ctx.lineTo(x + half, step * 8.5);
-        ctx.arc(x, step * 8.5, half, radians(0), radians(180));
+        ctx.arc(x, step * 8.5, half, radians(0), radians(180), false);
         ctx.lineTo(x - half, step * 4);
     }
 
@@ -2367,9 +2374,9 @@ SymbolMorph.prototype.renderSymbolTrashFull = function (ctx, color) {
     function stripe(x) {
         var half = step / 2;
         ctx.moveTo(x - half, step * 5.5);
-        ctx.arc(x, step * 5.5, half, radians(180), radians(0));
+        ctx.arc(x, step * 5.5, half, radians(180), radians(0), false);
         ctx.lineTo(x + half, step * 8.5);
-        ctx.arc(x, step * 8.5, half, radians(0), radians(180));
+        ctx.arc(x, step * 8.5, half, radians(0), radians(180), false);
         ctx.lineTo(x - half, step * 5.5);
     }
 

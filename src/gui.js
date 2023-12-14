@@ -93,22 +93,6 @@ modules.gui = '2023-December-12';
 
 var SnapVersion = '9.1.1';
 
-var IDE_Morph;
-var ProjectDialogMorph;
-var LibraryImportDialogMorph;
-var SpriteIconMorph;
-var CostumeIconMorph;
-var TurtleIconMorph;
-var WardrobeMorph;
-var SoundIconMorph;
-var JukeboxMorph;
-var SceneIconMorph;
-var SceneAlbumMorph;
-var StageHandleMorph;
-var PaletteHandleMorph;
-var CamSnapshotDialogMorph;
-var SoundRecorderDialogMorph;
-
 // IDE_Morph ///////////////////////////////////////////////////////////
 
 // I am SNAP's top-level frame, the Editor window
@@ -2325,14 +2309,21 @@ IDE_Morph.prototype.createCorralBar = function () {
             padding
         );
         this.corralBar.add(cambutton);
-        document.addEventListener(
-            'cameraDisabled',
-            event => {
-                cambutton.disable();
-                cambutton.hint =
-                    CamSnapshotDialogMorph.prototype.notSupportedMessage;
-            }
-        );
+        
+        try {
+            document.addEventListener(
+                'cameraDisabled',
+                () => {
+                    cambutton.disable();
+                    cambutton.hint =
+                        CamSnapshotDialogMorph.prototype.notSupportedMessage;
+                }
+            );
+        } catch (err) {
+            console.log('cameraDisabled not supported');
+            cambutton.disable();
+            cambutton.hint = CamSnapshotDialogMorph.prototype.notSupportedMessage;
+        }
     }
 
     // trash button
@@ -11296,15 +11287,21 @@ WardrobeMorph.prototype.updateList = function () {
             cambutton.hint =
             	CamSnapshotDialogMorph.prototype.notSupportedMessage;
         }
-
-        document.addEventListener(
-            'cameraDisabled',
-            () => {
-                cambutton.disable();
-                cambutton.hint =
-                    CamSnapshotDialogMorph.prototype.notSupportedMessage;
-            }
-        );
+        
+        try {
+            document.addEventListener(
+                'cameraDisabled',
+                () => {
+                    cambutton.disable();
+                    cambutton.hint =
+                        CamSnapshotDialogMorph.prototype.notSupportedMessage;
+                }
+            );
+        } catch (err) {
+            console.log('cameraDisabled not supported');
+            cambutton.disable();
+            cambutton.hint = CamSnapshotDialogMorph.prototype.notSupportedMessage;
+        }
     }
 
     txt = new TextMorph(localize(

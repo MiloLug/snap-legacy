@@ -69,15 +69,6 @@ modules.sketch = '2023-May-24';
 
 // Declarations
 
-var VectorShape;
-var VectorRectangle;
-var VectorLine;
-var VectorEllipse;
-var VectorPolygon;
-var VectorSelection;
-var VectorPaintEditorMorph;
-var VectorPaintCanvasMorph;
-
 // VectorShape
 
 VectorShape.prototype = {};

@@ -1,0 +1,32 @@
+{
+  "name": "snap-9.1.0",
+  "version": "1.0.0",
+  "description": "![Snap! Logo](src/snap_logo_sm.png) # Snap<em>!</em> Build Your Own Blocks",
+  "main": "sw.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+      "build": "make build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.6",
+    "@babel/plugin-proposal-export-default-from": "^7.23.3",
+    "@babel/plugin-transform-member-expression-literals": "^7.23.3",
+    "@babel/plugin-transform-property-literals": "^7.23.3",
+    "@babel/preset-env": "^7.23.6",
+    "autoprefixer": "^10.4.16",
+    "babel-loader": "^9.1.3",
+    "browserlist": "^1.0.1",
+    "core-js": "^3.34.0",
+    "glob": "^10.3.10",
+    "html-webpack-plugin": "^5.5.3",
+    "resolve-url-loader": "^5.0.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}

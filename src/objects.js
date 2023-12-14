@@ -97,24 +97,6 @@ embedMetadataPNG, SnapExtensions, SnapSerializer, snapEquals*/
 
 modules.objects = '2023-November-30';
 
-var SpriteMorph;
-var StageMorph;
-var SpriteBubbleMorph;
-var StageBubbleMorph;
-var Costume;
-var SVG_Costume;
-var CostumeEditorMorph;
-var Sound;
-var Note;
-var Microphone;
-var CellMorph;
-var WatcherMorph;
-var StagePrompterMorph;
-var Note;
-var SpriteHighlightMorph;
-var StagePickerMorph;
-var StagePickerItemMorph;
-
 function isSnapObject(thing) {
     return thing instanceof SpriteMorph || (thing instanceof StageMorph);
 }

@@ -67,9 +67,6 @@ Context, ZERO, WHITE*/
 
 modules.lists = '2023-November-24';
 
-var List;
-var ListWatcherMorph;
-
 // List ////////////////////////////////////////////////////////////////
 
 /*

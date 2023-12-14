@@ -42,8 +42,6 @@
 
 modules.video = '2019-May-22';
 
-var VideoMotion;
-
 // VideoMotion /////////////////////////////////////////////////////////////////
 
 function VideoMotion(width, height) {
