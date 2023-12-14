@@ -1,0 +1,34 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "firefox": "1.5",
+                    "opera": "9"
+                },
+                "modules": false
+            }
+        ]
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-export-default-from"
+    ],
+    "assumptions": {
+        "iterableIsArray": true,
+        "constantReexports": true,
+        "noDocumentAll": true,
+        "constantSuper": true,
+        "enumerableModuleMeta": true,
+        "ignoreToPrimitiveHint": true,
+        "noClassCalls": true,
+        "noNewArrows": true,
+        "privateFieldsAsProperties": true,
+        "pureGetters": true,
+        "setClassMethods": true,
+        "setPublicClassFields": true,
+        "setSpreadProperties": true,
+        "skipForOfIteratorClosing": true,
+        "superIsCallableConstructor": true
+    }
+}

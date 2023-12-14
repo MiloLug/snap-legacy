@@ -12,10 +12,19 @@ OUT_SOURCES_JS := $(addprefix ${OUT_DIR}/,${SOURCES_JS})
 
 SOURCES_STATIC := \
 	$(wildcard libraries/*.xml) libraries/LIBRARIES \
-	$(wildcard *.html) \
+	$(wildcard *.html)
 OUT_SOURCES_STATIC := $(addprefix ${OUT_DIR}/,${SOURCES_STATIC})
 
-ASSETS := Sounds Costumes Backgrounds Examples img manifest.json sw.js src/favicon.ico
+ASSETS := \
+	Sounds \
+    Costumes \
+    Backgrounds \
+    Examples \
+    img \
+    manifest.json \
+    sw.js \
+    src/favicon.ico \
+    help
 OUT_ASSETS := $(addprefix ${OUT_DIR}/,${ASSETS})
 
 ${OUT_DIR}:
@@ -23,6 +32,7 @@ ${OUT_DIR}:
 	mkdir -p $@/locale
 	mkdir -p $@/libraries/TuneScope/tonejs/{dist,build}
 	mkdir -p $@/src
+	mkdir -p $@/help
 
 ${OUT_DIR}/locale/%.js: locale/%.js | ${OUT_DIR}
 	${TRANSPILE} $< $@
