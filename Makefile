@@ -12,10 +12,10 @@ OUT_SOURCES_JS := $(addprefix ${OUT_DIR}/,${SOURCES_JS})
 
 SOURCES_STATIC := \
 	$(wildcard libraries/*.xml) libraries/LIBRARIES \
-	$(wildcard *.html)
+	$(wildcard *.html) \
 OUT_SOURCES_STATIC := $(addprefix ${OUT_DIR}/,${SOURCES_STATIC})
 
-ASSETS := Sounds Costumes Backgrounds Examples
+ASSETS := Sounds Costumes Backgrounds Examples img manifest.json sw.js src/favicon.ico
 OUT_ASSETS := $(addprefix ${OUT_DIR}/,${ASSETS})
 
 ${OUT_DIR}:
@@ -52,7 +52,9 @@ ${OUT_DIR}/%.html: %.html | ${OUT_DIR}
 
 
 ${OUT_ASSETS}: ${ASSETS} | ${OUT_DIR}
-	cp -r ${ASSETS} ${OUT_DIR}/
+	for asset in ${ASSETS}; do \
+		cp -r $$asset ${OUT_DIR}/$$asset; \
+	done
 
 
 build: \
