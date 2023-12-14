@@ -38,8 +38,6 @@ modules.cloud = '2023-April-12';
 
 // Global stuff
 
-var Cloud;
-
 // Cloud /////////////////////////////////////////////////////////////
 
 function Cloud() {
@@ -71,30 +69,23 @@ Cloud.prototype.knownDomains = {
 
 Cloud.prototype.defaultDomain = Cloud.prototype.knownDomains['Snap!Cloud'];
 
-Cloud.prototype.determineCloudDomain = function () {
-    // We dynamically determine the domain of the cloud server.
-    // This allows for easy mirrors and development servers.
-    // The domain is determined by:
-    // 1. <meta name='snap-cloud-domain' location="X"> in snap.html.
-    // 2. The current page's domain
-    var currentDomain = window.location.host, // host includes the port.
-        metaTag = document.head.querySelector("[name='snap-cloud-domain']"),
-        cloudDomain = this.defaultDomain,
-        domainMap = this.knownDomains;
-
-    if (metaTag) { return metaTag.getAttribute('location'); }
-
-    Object.keys(domainMap).some(function (name) {
-        var server = domainMap[name];
-        if (Cloud.isMatchingDomain(currentDomain, server)) {
-            cloudDomain = server;
-            return true;
+Cloud.prototype.determineCloudDomain = function() {
+    var currentDomain;
+    if (window.location && window.location.host) {
+        currentDomain = window.location.host;
+    } else {
+        // Fallback for older browsers where window.location.host is not available
+        var href = window.location.href;
+        var match = href.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+        if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
+            currentDomain = match[2];
+        } else {
+            throw new Error('Unsupported browser: Unable to determine cloud domain');
         }
-        return false;
-    });
-
-    return cloudDomain;
+    }
+    return currentDomain;
 };
+
 
 Cloud.isMatchingDomain = function (client, server) {
     // A matching domain means that the client-server are not subject to

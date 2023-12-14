@@ -75,11 +75,6 @@ CostumeIconMorph, SoundIconMorph, localize*/
 
 modules.tables = '2023-July-05';
 
-var Table;
-var TableCellMorph;
-var TableMorph;
-var TableFrameMorph;
-
 // Table /////////////////////////////////////////////////////////////
 
 /*

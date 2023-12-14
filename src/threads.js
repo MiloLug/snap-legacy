@@ -67,13 +67,6 @@ StagePickerMorph, CustomBlockDefinition, CommentMorph*/
 
 modules.threads = '2023-November-29';
 
-var ThreadManager;
-var Process;
-var Context;
-var Variable;
-var VariableFrame;
-var JSCompiler;
-
 const NONNUMBERS = [true, false, ''];
 
 (function () {

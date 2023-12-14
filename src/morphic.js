@@ -1390,7 +1390,17 @@ var MorphicPreferences = standardSettings;
     Snap! >> guis.js >> toggleRetina()
 */
 
-enableRetinaSupport();
+function isRetinaDisplay() {
+    if (window.matchMedia) {
+        var mq = window.matchMedia("only screen and (min-resolution: 2dppx)");
+        return (mq && mq.matches || (window.devicePixelRatio > 1)); 
+    }
+    return false;
+}
+
+if (isRetinaDisplay()) {
+    enableRetinaSupport();
+}
 
 // Global Functions ////////////////////////////////////////////////////
 
@@ -1477,6 +1487,11 @@ function newCanvas(extentPoint, nonRetina, recycleMe) {
     // by default retina support is automatic
     // optional existing canvas to be used again, unless it is marked as
     // being shared among Morphs (dataset property "morphicShare")
+
+    if (recycleMe && !recycleMe.dataset) {
+        recycleMe.dataset = {};
+    }
+
     var canvas, ext;
     nonRetina = nonRetina || false;
     ext = (extentPoint ||
@@ -1492,8 +1507,13 @@ function newCanvas(extentPoint, nonRetina, recycleMe) {
         return canvas;
     } else {
         canvas = document.createElement('canvas');
+        G_vmlCanvasManager.initElement(canvas);
         canvas.width = ext.x;
         canvas.height = ext.y;
+
+        if (!canvas.dataset) {
+            canvas.dataset = {};
+        }
     }
     if (nonRetina && canvas.isRetinaEnabled) {
         canvas.isRetinaEnabled = false;
@@ -1525,6 +1545,7 @@ function getMinimumFontHeight() {
         data,
         x,
         y;
+    G_vmlCanvasManager.initElement(canvas);
     canvas.width = size;
     canvas.height = size;
     ctx = canvas.getContext('2d');
@@ -1915,46 +1936,12 @@ function enableRetinaSupport() {
     });
 }
 
-function isRetinaSupported () {
+function isRetinaSupported() {
     var ctx = document.createElement("canvas").getContext("2d"),
-        backingStorePixelRatio = ctx.webkitBackingStorePixelRatio ||
-            ctx.mozBackingStorePixelRatio ||
-            ctx.msBackingStorePixelRatio ||
-            ctx.oBackingStorePixelRatio ||
-            ctx.backingStorePixelRatio || 1,
-        canvasProto = HTMLCanvasElement.prototype,
-        contextProto = CanvasRenderingContext2D.prototype,
-        uber = {
-            drawImage: contextProto.drawImage,
-            getImageData: contextProto.getImageData,
+        backingStorePixelRatio = ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1,
+        devicePixelRatio = window.devicePixelRatio || 1;
 
-            width: Object.getOwnPropertyDescriptor(
-                canvasProto,
-                'width'
-            ),
-            height: Object.getOwnPropertyDescriptor(
-                canvasProto,
-                'height'
-            ),
-            shadowOffsetX: Object.getOwnPropertyDescriptor(
-                contextProto,
-                'shadowOffsetX'
-            ),
-            shadowOffsetY: Object.getOwnPropertyDescriptor(
-                contextProto,
-                'shadowOffsetY'
-            ),
-            shadowBlur: Object.getOwnPropertyDescriptor(
-                contextProto,
-                'shadowBlur'
-            )
-        };
-    return backingStorePixelRatio !== window.devicePixelRatio &&
-        !(Object.keys(uber).some(any => {
-            var prop = uber[any];
-            return prop.hasOwnProperty('configurable') && (!prop.configurable);
-        })
-    );
+    return backingStorePixelRatio !== devicePixelRatio;
 }
 
 function isRetinaEnabled () {
@@ -3179,21 +3166,6 @@ Node.prototype.childThatIsA = function () {
 // Morphs //////////////////////////////////////////////////////////////
 
 // Morph: referenced constructors
-
-var Morph;
-var WorldMorph;
-var HandMorph;
-var ShadowMorph;
-var FrameMorph;
-var MenuMorph;
-var HandleMorph;
-var StringFieldMorph;
-var ColorPickerMorph;
-var SliderMorph;
-var ScrollFrameMorph;
-var InspectorMorph;
-var StringMorph;
-var TextMorph;
 
 // Morph inherits from Node:
 
@@ -5097,8 +5069,6 @@ HandleMorph.prototype.attach = function () {
 
 // PenMorph: referenced constructors
 
-var PenMorph;
-
 // PenMorph inherits from Morph:
 
 PenMorph.prototype = new Morph();
@@ -5356,8 +5326,6 @@ PenMorph.prototype.tree = function (level, length, angle) {
 
 // ColorPaletteMorph ///////////////////////////////////////////////////
 
-var ColorPaletteMorph;
-
 // ColorPaletteMorph inherits from Morph:
 
 ColorPaletteMorph.prototype = new Morph();
@@ -5467,8 +5435,6 @@ ColorPaletteMorph.prototype.setTargetSetter = function () {
 
 // GrayPaletteMorph ///////////////////////////////////////////////////
 
-var GrayPaletteMorph;
-
 // GrayPaletteMorph inherits from ColorPaletteMorph:
 
 GrayPaletteMorph.prototype = new ColorPaletteMorph();
@@ -5557,8 +5523,6 @@ ColorPickerMorph.prototype.rootForGrab = function () {
 
 // can be used for text cursors
 
-var BlinkerMorph;
-
 // BlinkerMorph inherits from Morph:
 
 BlinkerMorph.prototype = new Morph();
@@ -5588,8 +5552,6 @@ BlinkerMorph.prototype.step = function () {
 // I am a String/Text editing widget
 
 // CursorMorph: referenced constructors
-
-var CursorMorph;
 
 // CursorMorph inherits from BlinkerMorph:
 
@@ -5937,8 +5899,6 @@ CursorMorph.prototype.destroy = function () {
 
 // I can have an optionally rounded border
 
-var BoxMorph;
-
 // BoxMorph inherits from Morph:
 
 BoxMorph.prototype = new Morph();
@@ -6138,8 +6098,6 @@ BoxMorph.prototype.numericalSetters = function () {
 
 // SpeechBubbleMorph: referenced constructors
 
-var SpeechBubbleMorph;
-
 // SpeechBubbleMorph inherits from BoxMorph:
 
 SpeechBubbleMorph.prototype = new BoxMorph();
@@ -6290,7 +6248,7 @@ SpeechBubbleMorph.prototype.outlinePath = function (ctx, radius, inset) {
 
     function circle(x, y, r) {
         ctx.moveTo(x + r, y);
-        ctx.arc(x, y, r, radians(0), radians(360));
+        ctx.arc(x, y, r, radians(0), radians(360), false);
     }
 
     // top left:
@@ -6470,8 +6428,6 @@ SpeechBubbleMorph.prototype.shadowImageBlurred = function (off, color) {
 // DialMorph //////////////////////////////////////////////////////
 
 // I am a knob than can be turned to select a number
-
-var DialMorph;
 
 // DialMorph inherits from Morph:
 
@@ -6771,8 +6727,6 @@ DialMorph.prototype.updateTarget = function () {
 
 // I can be used for sliders
 
-var CircleBoxMorph;
-
 // CircleBoxMorph inherits from Morph:
 
 CircleBoxMorph.prototype = new Morph();
@@ -6906,8 +6860,6 @@ CircleBoxMorph.prototype.toggleOrientation = function () {
 };
 
 // SliderButtonMorph ///////////////////////////////////////////////////
-
-var SliderButtonMorph;
 
 // SliderButtonMorph inherits from CircleBoxMorph:
 
@@ -7453,8 +7405,6 @@ SliderMorph.prototype.mouseDownLeft = function (pos) {
 
 // for demo and debuggin purposes only, to be removed later
 
-var MouseSensorMorph;
-
 // MouseSensorMorph inherits from BoxMorph:
 
 MouseSensorMorph.prototype = new BoxMorph();
@@ -7522,9 +7472,6 @@ MouseSensorMorph.prototype.mouseClickLeft = function () {
 // InspectorMorph //////////////////////////////////////////////////////
 
 // InspectorMorph: referenced constructors
-
-var ListMorph;
-var TriggerMorph;
 
 // InspectorMorph inherits from BoxMorph:
 
@@ -7994,8 +7941,6 @@ InspectorMorph.prototype.updateReferences = function (map) {
 // MenuMorph ///////////////////////////////////////////////////////////
 
 // MenuMorph: referenced constructors
-
-var MenuItemMorph;
 
 // MenuMorph inherits from BoxMorph:
 
@@ -8744,7 +8689,8 @@ StringMorph.prototype.renderWithBlanks = function (ctx, startX, y) {
             top,
             space / 2,
             radians(0),
-            radians(360)
+            radians(360),
+            false
         );
         ctx.fill();
         x += space;
@@ -10060,8 +10006,6 @@ TriggerMorph.prototype.popUpbubbleHelp = function (contents) {
 
 // I automatically determine my bounds
 
-var MenuItemMorph;
-
 // MenuItemMorph inherits from TriggerMorph:
 
 MenuItemMorph.prototype = new TriggerMorph();
@@ -11140,8 +11084,6 @@ StringFieldMorph.prototype.mouseClickLeft = function (pos) {
 // BouncerMorph ////////////////////////////////////////////////////////
 
 // I am a Demo of a stepping custom Morph
-
-var BouncerMorph;
 
 // Bouncers inherit from Morph:
 

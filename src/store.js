@@ -249,8 +249,6 @@ XML_Serializer.prototype.parse = function (xmlString, assertVersion) {
 
 // SnapSerializer ////////////////////////////////////////////////////////////
 
-var SnapSerializer;
-
 // SnapSerializer inherits from XML_Serializer:
 
 SnapSerializer.prototype = new XML_Serializer();

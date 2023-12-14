@@ -89,10 +89,6 @@ modules.paint = '2023-May-24';
 
 // Declarations
 
-var PaintEditorMorph;
-var PaintCanvasMorph;
-var PaintColorPickerMorph;
-
 // PaintEditorMorph //////////////////////////
 
 // A complete paint editor

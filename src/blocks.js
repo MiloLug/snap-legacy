@@ -163,36 +163,6 @@ SVG_Costume, embedMetadataPNG, ThreadManager, snapEquals*/
 
 modules.blocks = '2023-November-24';
 
-var SyntaxElementMorph;
-var BlockMorph;
-var BlockLabelMorph;
-var BlockSymbolMorph;
-var CommandBlockMorph;
-var ReporterBlockMorph;
-var ScriptsMorph;
-var ArgMorph;
-var CommandSlotMorph;
-var CSlotMorph;
-var InputSlotMorph;
-var InputSlotStringMorph;
-var InputSlotTextMorph;
-var BooleanSlotMorph;
-var ArrowMorph;
-var ColorSlotMorph;
-var HatBlockMorph;
-var BlockHighlightMorph;
-var MultiArgMorph;
-var TemplateSlotMorph;
-var FunctionSlotMorph;
-var ReporterSlotMorph;
-var RingMorph;
-var RingCommandSlotMorph;
-var RingReporterSlotMorph;
-var CommentMorph;
-var ArgLabelMorph;
-var TextSlotMorph;
-var ScriptFocusMorph;
-
 // SyntaxElementMorph //////////////////////////////////////////////////
 
 // I am the ancestor of all blocks and input slots
@@ -12865,7 +12835,7 @@ BooleanSlotMorph.prototype.drawKnob = function (ctx, progress) {
 
     ctx.fillStyle = color.toString();
     ctx.beginPath();
-    ctx.arc(x, y, r, radians(0), radians(360));
+    ctx.arc(x, y, r, radians(0), radians(360), false);
     ctx.closePath();
     ctx.fill();
 
@@ -12882,7 +12852,7 @@ BooleanSlotMorph.prototype.drawKnob = function (ctx, progress) {
     ctx.lineWidth = outline;
     ctx.strokeStyle = outlineColor.toString();
     ctx.beginPath();
-    ctx.arc(x, y, r - (outline / 2), radians(0), radians(360));
+    ctx.arc(x, y, r - (outline / 2), radians(0), radians(360), false);
     ctx.stroke();
 
     if (r < outline + this.edge) {

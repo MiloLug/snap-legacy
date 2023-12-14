@@ -115,24 +115,6 @@ modules.byob = '2023-July-14';
 
 // Declarations
 
-var CustomBlockDefinition;
-var CustomCommandBlockMorph;
-var CustomReporterBlockMorph;
-var BlockDialogMorph;
-var BlockEditorMorph;
-var PrototypeHatBlockMorph;
-var BlockLabelFragment;
-var BlockLabelFragmentMorph;
-var BlockInputFragmentMorph;
-var BlockLabelPlaceHolderMorph;
-var InputSlotDialogMorph;
-var VariableDialogMorph;
-var JaggedBlockMorph;
-var BlockExportDialogMorph;
-var BlockImportDialogMorph;
-var BlockRemovalDialogMorph;
-var BlockVisibilityDialogMorph;
-
 // CustomBlockDefinition ///////////////////////////////////////////////
 
 // CustomBlockDefinition instance creation:

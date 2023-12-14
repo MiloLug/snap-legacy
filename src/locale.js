@@ -52,7 +52,6 @@
 
 modules.locale = '2023-November-22';
 
-var Localizer;
 var SnapTranslator = new Localizer();
 
 function localize(string) {

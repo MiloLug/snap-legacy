@@ -89,17 +89,6 @@ ScrollFrameMorph, MenuItemMorph, useBlurredShadows, getDocumentPositionOf*/
 
 modules.widgets = '2023-May-24';
 
-var PushButtonMorph;
-var ToggleButtonMorph;
-var TabMorph;
-var ToggleMorph;
-var ToggleElementMorph;
-var DialogBoxMorph;
-var AlignmentMorph;
-var InputFieldMorph;
-var PianoMenuMorph;
-var PianoKeyMorph;
-
 // PushButtonMorph /////////////////////////////////////////////////////
 
 // I am a Button with rounded corners and 3D-ish graphical effects

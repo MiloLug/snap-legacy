@@ -3,16 +3,12 @@
     <head>
         <title>Snap! Build Your Own Blocks</title>
         <link rel="icon" href="src/favicon.ico" type="image/x-icon">
-        <link rel="manifest" href="manifest.json">
-        <link rel="apple-touch-icon" href="img/snap-icon-152.png">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="white"/>
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-title" content="Snap!">
-        <meta name="msapplication-TileImage" content="img/snap-icon-144.png">
-        <meta name="msapplication-TileColor" content="#FFFFFF">
+
+        <script src="src/poly.js?version=2023-05-24"></script>
+        <script src="src/typedarrays.js?version=2023-05-24"></script>
+        <script src="src/excanvas.js?version=2023-05-24"></script>
+
         <script src="src/morphic.js?version=2023-11-07"></script>
         <script src="src/symbols.js?version=2023-07-13"></script>
         <script src="src/widgets.js?version=2023-05-24"></script>
@@ -39,11 +35,38 @@
         <script>
             var world;
             window.onload = function () {
+                // Polyfill for requestAnimationFrame
+                (function() {
+                    var lastTime = 0;
+                    var vendors = ['ms', 'moz', 'webkit', 'o'];
+                    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+                        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                                    || window[vendors[x]+'CancelRequestAnimationFrame'];
+                    }
+
+                    if (!window.requestAnimationFrame)
+                        window.requestAnimationFrame = function(callback, element) {
+                            var currTime = new Date().getTime();
+                            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+                              timeToCall);
+                            lastTime = currTime + timeToCall;
+                            return id;
+                        };
+
+                    if (!window.cancelAnimationFrame)
+                        window.cancelAnimationFrame = function(id) {
+                            clearTimeout(id);
+                        };
+                }());
+
                 var FPS = 67,
                     lastTime = 0,
+                    loop;
 
-                loop = (timestamp) => {
-                    requestAnimationFrame(loop);
+                loop = function(timestamp) {
+                    window.requestAnimationFrame(loop);
                     if (timestamp - lastTime < 1000 / FPS) {
                         return;
                     }
@@ -59,7 +82,7 @@
                 }
                 world = new WorldMorph(document.getElementById('world'));
                 new IDE_Morph().openIn(world);
-                requestAnimationFrame(loop);
+                window.requestAnimationFrame(loop);
             };
         </script>
     </head>
@@ -67,3 +90,4 @@
         <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
     </body>
 </html>
+

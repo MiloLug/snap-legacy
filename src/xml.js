@@ -73,9 +73,6 @@ modules.xml = '2021-July-05';
 
 // Declarations
 
-var ReadStream;
-var XML_Element;
-
 // ReadStream ////////////////////////////////////////////////////////////
 
 // I am a sequential reading interface to an Array or String

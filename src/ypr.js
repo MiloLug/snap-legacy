@@ -236,6 +236,7 @@ var sb = (function (sb) {
                 this.decompress(bm);
             }
             this.image = document.createElement('canvas');
+            G_vmlCanvasManager.initElement(this.image);
             this.image.width = this.width;
             this.image.height = this.height;
         },
@@ -308,6 +309,7 @@ var sb = (function (sb) {
                 x, y, i, imageData, data, context, colors, color, b;
             if (this.depth === 32) {
                 this.image = document.createElement('canvas');
+                G_vmlCanvasManager.initElement(this.image);
                 this.image.width = this.width;
                 this.image.height = this.height;
                 data = (imageData = (context = this.image.getContext('2d')).createImageData(this.width, this.height)).data;
