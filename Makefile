@@ -53,9 +53,10 @@ ${OUT_DIR}/libraries/TuneScope/tonejs/package/build/%.js: libraries/TuneScope/to
 	${TRANSPILE} $< $@
 
 
+${OUT_DIR}/libraries/LIBRARIES: libraries/LIBRARIES | ${OUT_DIR}
+	cp -r $< $@
 ${OUT_DIR}/libraries/%.xml: libraries/%.xml | ${OUT_DIR}
 	cp -r $< $@
-	cp -r libraries/LIBRARIES ${OUT_DIR}/libraries/LIBRARIES
 
 ${OUT_DIR}/%.html: %.html | ${OUT_DIR}
 	cp -r $< $@
