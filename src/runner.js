@@ -35,16 +35,10 @@ window.onload = function () {
 
                 if (this.status === 200)
                     window.location.href = url;
-                else
-                    startSnap();
             };
             xhr.open('GET', url, false);
-        } catch (e) {
-            console.log("Can't even use XHR, so we're probably offline. Oh well");
-            startSnap();
-        }
-    } else {
-        startSnap();
+        } catch (e) {}
     }
+    startSnap();
 };
 
