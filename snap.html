@@ -41,59 +41,7 @@
         <script src="src/api.js?version=2022-11-28"></script>
         <script src="src/sha512.js?version=2019-06-27"></script>
         <script src="src/FileSaver.min.js?version=2019-06-27"></script>
-        <script>
-            var world;
-            window.onload = function () {
-                // Polyfill for requestAnimationFrame
-                (function() {
-                    var lastTime = 0;
-                    var vendors = ['ms', 'moz', 'webkit', 'o'];
-                    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-                        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-                        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
-                                                    || window[vendors[x]+'CancelRequestAnimationFrame'];
-                    }
-
-                    if (!window.requestAnimationFrame)
-                        window.requestAnimationFrame = function(callback, element) {
-                            var currTime = new Date().getTime();
-                            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-                            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
-                              timeToCall);
-                            lastTime = currTime + timeToCall;
-                            return id;
-                        };
-
-                    if (!window.cancelAnimationFrame)
-                        window.cancelAnimationFrame = function(id) {
-                            clearTimeout(id);
-                        };
-                }());
-
-                var FPS = 67,
-                    lastTime = 0,
-                    loop;
-
-                loop = function(timestamp) {
-                    window.requestAnimationFrame(loop);
-                    if (timestamp - lastTime < 1000 / FPS) {
-                        return;
-                    }
-                    world.doOneCycle();
-                    lastTime = Math.max(
-                        lastTime + 1000 / FPS,
-                        timestamp - 1000 / FPS
-                    );
-                };
-
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register('sw.js');
-                }
-                world = new WorldMorph(document.getElementById('world'));
-                new IDE_Morph().openIn(world);
-                window.requestAnimationFrame(loop);
-            };
-        </script>
+        <script src="src/runner.js?version=2023-12-12"></script>
     </head>
     <body style="margin: 0;">
         <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
