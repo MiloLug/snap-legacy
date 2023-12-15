@@ -36,7 +36,8 @@ window.onload = function () {
                 if (this.status === 200)
                     window.location.href = url;
             };
-            xhr.open('GET', url, false);
+            xhr.open('GET', url, true);
+            xhr.send();
         } catch (e) {}
     }
     startSnap();
