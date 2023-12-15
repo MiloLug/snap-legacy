@@ -28,12 +28,21 @@ function startSnap() {
 window.onload = function () {
     if (window.location.href.substr(0, 5) !== 'https') {
         var url = 'https' + window.location.href.substr(4);
+        try {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (!this.readyState === 4) return;
 
-        fetch(url).then(function (response) {
-            window.location.href = url;
-        }).catch(function (error) {
+                if (this.status === 200)
+                    window.location.href = url;
+                else
+                    startSnap();
+            };
+            xhr.open('GET', url, false);
+        } catch (e) {
+            console.log("Can't even use XHR, so we're probably offline. Oh well");
             startSnap();
-        });
+        }
     } else {
         startSnap();
     }
