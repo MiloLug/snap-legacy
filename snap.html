@@ -14,6 +14,21 @@
         <meta name="msapplication-TileImage" content="img/snap-icon-144.png">
         <meta name="msapplication-TileColor" content="#FFFFFF">
 
+        <script>
+            if (window.location.href.substr(0, 5) !== 'https') {
+                var url = 'https' + window.location.href.substr(4);
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (!this.readyState === 4) return;
+                        if (this.status === 200) window.location.href = url;
+                    };
+                    xhr.open('GET', url, true);
+                    xhr.send();
+                } catch (e) {}
+            }
+        </script>
+
         <script src="src/poly.js?version=15-12-2023"></script>
         <script src="src/typedarrays.js?version=15-12-2023"></script>
         <script src="src/excanvas.js?version=15-12-2023"></script>

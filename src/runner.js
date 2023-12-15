@@ -17,7 +17,7 @@ function startSnap() {
         );
     };
 
-    if ('serviceWorker' in navigator) {
+    if (window.navigator && 'serviceWorker' in window.navigator) {
         navigator.serviceWorker.register('sw.js');
     }
     world = new WorldMorph(document.getElementById('world'));
@@ -25,21 +25,4 @@ function startSnap() {
     window.requestAnimationFrame(loop);
 }
 
-window.onload = function () {
-    if (window.location.href.substr(0, 5) !== 'https') {
-        var url = 'https' + window.location.href.substr(4);
-        try {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (!this.readyState === 4) return;
-
-                if (this.status === 200)
-                    window.location.href = url;
-            };
-            xhr.open('GET', url, true);
-            xhr.send();
-        } catch (e) {}
-    }
-    startSnap();
-};
-
+window.onload = startSnap;
